@@ -24,6 +24,9 @@ public extension UIFont {
 
 /// Returns a SwiftUI.Text object that uses the desired `Theme.typography`.
 @available(iOS 13.0, *)
-public func StyledText(_ string: String, style: Typography.Style) -> SwiftUI.Text {
-  return AppTypography.style(style).asTextView(string)
+public func StyledText(
+  _ key: LocalizedStringKey,
+  style: Typography.Style
+) -> SwiftUI.Text {
+  return AppTypography.style(style).asTextView(key)
 }

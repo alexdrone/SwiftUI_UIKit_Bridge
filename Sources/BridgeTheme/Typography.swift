@@ -131,8 +131,8 @@ public class Typography {
 
     /// Returns a `SwiftUI.Text` view configured with this style descriptor.
     @available(iOS 13.0, *)
-    public func asTextView(_ string: String) -> SwiftUI.Text {
-      return Text(string)
+    public func asTextView(_ key: LocalizedStringKey) -> SwiftUI.Text {
+      return Text(key)
         .font(internalFont.font)
         .kerning(kern)
         .color(color.color)

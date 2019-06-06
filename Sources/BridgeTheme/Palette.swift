@@ -38,6 +38,10 @@ public protocol PaletteProtocol {
   func secondary(_ style: Palette.Style) -> UIColor
 }
 
+public extension PaletteProtocol {
+
+}
+
 // MARK: - Internals
 
 extension UIColor {
