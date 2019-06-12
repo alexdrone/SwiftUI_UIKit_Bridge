@@ -1,5 +1,7 @@
 import UIKit
 
+/// Example theme bundled with this package.
+
 // MARK: - Default typography
 
 @available(iOS 10, *)
@@ -87,38 +89,38 @@ public class DefaultTypography: TypographyProtocol {
 
 @available(iOS 10, *)
 public class DefaultPalette: PaletteProtocol {
-  public let surface = UIColor("#f8f9fa")
-  public let light = UIColor("#ffffff")
-  public let dark = UIColor("#f1f3f4")
-  public let text = UIColor("#130c0c")
-  public let textHigh = UIColor("#000000")
-  public let textDisabled = UIColor("#000000").withAlphaComponent(0.38)
-  public let hairline = UIColor("#dadce0")
+  public let surface = Palette.Color("#f8f9fa")
+  public let light = Palette.Color("#ffffff")
+  public let dark = Palette.Color("#f1f3f4")
+  public let text = Palette.Color("#130c0c")
+  public let textHigh = Palette.Color("#000000")
+  public let textDisabled = Palette.Color("#000000").withAlphaComponent(0.38)
+  public let hairline = Palette.Color("#dadce0")
 
-  public func primary(_ style: Palette.Style) -> UIColor {
+  public func primary(_ style: Palette.Style) -> Palette.Color {
     switch style {
     case .tintBase:
-      return UIColor("#5f6368")
+      return Palette.Color("#5f6368")
     case .tint900:
-      return UIColor("#202124")
+      return Palette.Color("#202124")
     case .tint800:
-      return UIColor("#3c4043")
+      return Palette.Color("#3c4043")
     case .tint700:
-      return UIColor("#5f6368")
+      return Palette.Color("#5f6368")
     case .tint600:
-      return UIColor("#80868b")
+      return Palette.Color("#80868b")
     case .tint500:
-      return UIColor("#9aaca6")
+      return Palette.Color("#9aaca6")
     case .tint400:
-      return UIColor("#bdc1c6")
+      return Palette.Color("#bdc1c6")
     case .tint300:
-      return UIColor("#dadce0")
+      return Palette.Color("#dadce0")
     case .tint200:
-      return UIColor("#e8eaed")
+      return Palette.Color("#e8eaed")
     case .tint100:
-      return UIColor("#f1f3f4")
+      return Palette.Color("#f1f3f4")
     case .tint50:
-      return UIColor("#f8f9fa")
+      return Palette.Color("#f8f9fa")
     case .text:
       return text
     case .textHigh:
@@ -126,50 +128,50 @@ public class DefaultPalette: PaletteProtocol {
     case .textDisabled:
       return textDisabled
     case .invertedText:
-      return UIColor("#ffffff").withAlphaComponent(0.60)
+      return Palette.Color("#ffffff").withAlphaComponent(0.60)
     case .invertedTextHigh:
-      return UIColor("#ffffff")
+      return Palette.Color("#ffffff")
     case .invertedTextDisabled:
-      return UIColor("#ffffff").withAlphaComponent(0.38)
+      return Palette.Color("#ffffff").withAlphaComponent(0.38)
     }
   }
 
-  public func secondary(_ style: Palette.Style) -> UIColor {
+  public func secondary(_ style: Palette.Style) -> Palette.Color {
     switch style {
     case .tintBase:
-      return UIColor("#f15258")
+      return Palette.Color("#f15258")
     case .tint900:
-      return UIColor("#ba1625")
+      return Palette.Color("#ba1625")
     case .tint800:
-      return UIColor("#c92430")
+      return Palette.Color("#c92430")
     case .tint700:
-      return UIColor("#d62b38")
+      return Palette.Color("#d62b38")
     case .tint600:
-      return UIColor("#e8353e")
+      return Palette.Color("#e8353e")
     case .tint500:
-      return UIColor("#f73e3f")
+      return Palette.Color("#f73e3f")
     case .tint400:
-      return UIColor("#f15158")
+      return Palette.Color("#f15158")
     case .tint300:
-      return UIColor("#e67379")
+      return Palette.Color("#e67379")
     case .tint200:
-      return UIColor("#ef9a9e")
+      return Palette.Color("#ef9a9e")
     case .tint100:
-      return UIColor("#ffcdd5")
+      return Palette.Color("#ffcdd5")
     case .tint50:
-      return UIColor("#ffebef")
+      return Palette.Color("#ffebef")
     case .text:
-      return UIColor("#f15258")
+      return Palette.Color("#f15258")
     case .textHigh:
-      return UIColor("#f15258")
+      return Palette.Color("#f15258")
     case .textDisabled:
-      return UIColor("#000000").withAlphaComponent(0.38)
+      return Palette.Color("#000000").withAlphaComponent(0.38)
     case .invertedText:
-      return UIColor("#ffffff").withAlphaComponent(0.60)
+      return Palette.Color("#ffffff").withAlphaComponent(0.60)
     case .invertedTextHigh:
-      return UIColor("#ffffff")
+      return Palette.Color("#ffffff")
     case .invertedTextDisabled:
-      return UIColor("#ffffff").withAlphaComponent(0.38)
+      return Palette.Color("#ffffff").withAlphaComponent(0.38)
     }
   }
 }

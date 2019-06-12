@@ -79,7 +79,7 @@ public class Typography {
     /// Whether this font support dybamic font size.
     private var supportDynamicType: Bool
     /// The font color.
-    public var color: UIColor
+    public var color: Palette.Color
     /// Publicly exposed font (subject to font scaling if appliocable).
     public var font: UIFont {
       guard enableDynamicType, supportDynamicType else {
@@ -97,7 +97,7 @@ public class Typography {
       kern: CGFloat,
       uppercase: Bool = false,
       supportDynamicType: Bool = false,
-      color: UIColor = AppPalette.text
+      color: Palette.Color = AppPalette.text
     ) {
       self.internalFont = font
       self.kern = kern
@@ -110,12 +110,12 @@ public class Typography {
     public var attributes: [NSAttributedString.Key: Any] {
       return [
         NSAttributedString.Key.font: font,
-        NSAttributedString.Key.foregroundColor: color,
+        NSAttributedString.Key.foregroundColor: color.uiColor,
         NSAttributedString.Key.kern: kern
       ]
     }
     /// Override the `NSForegroundColorAttributeName` attribute.
-    public func withColor(_ override: UIColor) -> StyleDescriptor {
+    public func withColor(_ override: Palette.Color) -> StyleDescriptor {
       return StyleDescriptor(
         font: internalFont,
         kern: kern,
