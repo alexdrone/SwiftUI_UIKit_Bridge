@@ -1,4 +1,7 @@
 import UIKit
+#if canImport(SwiftUI)
+import SwiftUI
+#endif
 
 /// The theme palette.
 /// Override this static property to define the application palette.
@@ -14,4 +17,16 @@ public var AppDarkModeEnabled: Bool {
     return UIScreen.main.traitCollection.userInterfaceStyle == .dark
   }
   return false
+}
+
+@available(iOS 13.0, *)
+extension View {
+  /// Returns the current app palette.
+  var palette: PaletteProtocol {
+    return AppPalette
+  }
+  /// Returns the current app typography.
+  var typography: TypographyProtocol {
+    return AppTypography
+  }
 }
