@@ -1,5 +1,5 @@
-# BridgeTheme
+# UniversalTheme
 
-A SwiftUI/UIKit shared global app theming system.
+Custom typography and palette shared between UIKit and SwiftUI.
 
 
