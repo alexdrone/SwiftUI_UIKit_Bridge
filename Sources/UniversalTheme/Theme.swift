@@ -20,7 +20,7 @@ public var AppDarkModeEnabled: Bool {
 }
 
 @available(iOS 13.0, *)
-extension View {
+public extension View {
   /// Returns the current app palette.
   var palette: PaletteProtocol {
     return AppPalette

@@ -30,4 +30,3 @@ public func StyledText(
 ) -> SwiftUI.Text {
   return AppTypography.style(style).asTextView(key)
 }
-
