@@ -9,11 +9,11 @@ public class DefaultTypography: TypographyProtocol {
   public let primaryFontFamily: Typography.FontNameProvider? = { weight in
     switch weight {
     case .light:
-      return ".SFUIRounded-Ultrathin"
+      return "Rubik-Light"
     case .regular:
-      return ".SFUIRounded-Regular"
+      return "Rubik-Regular"
     case .medium:
-      return ".SFUIRounded-Semibold"
+      return "Rubik-Medium"
     }
   }
   public let secondaryFontFamily: Typography.FontNameProvider? = nil

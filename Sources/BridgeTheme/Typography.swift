@@ -131,11 +131,20 @@ public class Typography {
 
     /// Returns a `SwiftUI.Text` view configured with this style descriptor.
     @available(iOS 13.0, *)
-    public func asTextView(_ key: LocalizedStringKey) -> SwiftUI.Text {
+    public func asTextView(key: LocalizedStringKey) -> SwiftUI.Text {
       return Text(key)
         .font(internalFont.font)
         .kerning(kern)
-        .color(color.color)
+        .foregroundColor(color.color)
+    }
+
+    /// Returns a `SwiftUI.Text` view configured with this style descriptor.
+    @available(iOS 13.0, *)
+    public func asTextView(verbatim: String) -> SwiftUI.Text {
+      return Text(verbatim: verbatim)
+        .font(internalFont.font)
+        .kerning(kern)
+        .foregroundColor(color.color)
     }
   }
 }

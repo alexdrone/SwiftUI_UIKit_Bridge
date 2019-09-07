@@ -4,11 +4,11 @@
 import PackageDescription
 
 let package = Package(
-    name: "UniversalTheme",
+    name: "BridgeTheme",
     products: [
         .library(
-            name: "UniversalTheme",
-            targets: ["UniversalTheme"]),
+            name: "BridgeTheme",
+            targets: ["BridgeTheme"]),
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
@@ -16,7 +16,7 @@ let package = Package(
     ],
     targets: [
         .target(
-            name: "UniversalTheme",
+            name: "BridgeTheme",
             dependencies: []),
     ]
 )

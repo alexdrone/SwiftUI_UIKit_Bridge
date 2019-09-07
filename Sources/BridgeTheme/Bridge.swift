@@ -26,7 +26,16 @@ public extension UIFont {
 @available(iOS 13.0, *)
 public func StyledText(
   _ style: Typography.Style,
-  _ key: LocalizedStringKey
+  key: LocalizedStringKey
 ) -> SwiftUI.Text {
-  return AppTypography.style(style).asTextView(key)
+  return AppTypography.style(style).asTextView(key: key)
+}
+
+/// Returns a SwiftUI.Text object that uses the desired `AppTypography`.
+@available(iOS 13.0, *)
+public func StyledText(
+  _ style: Typography.Style,
+  verbatim: String
+) -> SwiftUI.Text {
+  return AppTypography.style(style).asTextView(verbatim: verbatim)
 }
