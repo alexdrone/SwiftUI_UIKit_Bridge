@@ -11,7 +11,7 @@ public class DefaultTypography: TypographyProtocol {
     case .light:
       return "Rubik-Light"
     case .regular:
-      return "Rubik"
+      return "Rubik-Regular"
     case .medium:
       return "Rubik-Medium"
     }
