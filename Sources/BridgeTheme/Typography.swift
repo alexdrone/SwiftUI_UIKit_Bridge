@@ -65,6 +65,8 @@ public class Typography {
     guard let fontProvider = provider else {
       return failsafe
     }
+    print(fontProvider(weight))
+    print(UIFont(name: fontProvider(weight), size: size))
     return UIFont(name: fontProvider(weight), size: size) ?? failsafe
   }
 
