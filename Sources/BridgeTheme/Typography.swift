@@ -17,7 +17,7 @@ public class Typography {
     case regular
     case medium
     /// Returns the associated *UIFontWeight* value.
-    var fontWeight: UIFont.Weight {
+    public var fontWeight: UIFont.Weight {
       switch self {
       case .light:
         return UIFont.Weight.light
@@ -65,8 +65,6 @@ public class Typography {
     guard let fontProvider = provider else {
       return failsafe
     }
-    print(fontProvider(weight))
-    print(UIFont(name: fontProvider(weight), size: size))
     return UIFont(name: fontProvider(weight), size: size) ?? failsafe
   }
 
