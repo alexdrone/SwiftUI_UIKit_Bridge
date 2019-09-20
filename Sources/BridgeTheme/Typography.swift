@@ -135,7 +135,7 @@ public class Typography {
     @available(iOS 13.0, *)
     public func asTextView(key: LocalizedStringKey) -> SwiftUI.Text {
       return Text(key)
-        .font(internalFont.font)
+        .font(Font.custom(internalFont.familyName, size: internalFont.pointSize))
         .kerning(kern)
         .foregroundColor(color.color)
     }
@@ -144,7 +144,7 @@ public class Typography {
     @available(iOS 13.0, *)
     public func asTextView(verbatim: String) -> SwiftUI.Text {
       return Text(verbatim: verbatim)
-        .font(internalFont.font)
+        .font(Font.custom(internalFont.familyName, size: internalFont.pointSize))
         .kerning(kern)
         .foregroundColor(color.color)
     }
