@@ -16,16 +16,7 @@ public class DefaultTypography: TypographyProtocol {
       return "Rubik-Medium"
     }
   }
-  public let secondaryFontFamily: Typography.FontNameProvider? = { weight in
-    switch weight {
-    case .light:
-      return "SFUIDisplay-Light"
-    case .regular:
-      return "SFUIDisplay-Regular"
-    case .medium:
-      return "SFUIDisplay-Medium"
-    }
-  }
+  public let secondaryFontFamily: Typography.FontNameProvider? = nil
 
   public func style(_ scale: Typography.Style) -> Typography.StyleDescriptor {
     switch scale {
