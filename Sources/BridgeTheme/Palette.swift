@@ -45,7 +45,7 @@ public struct Palette {
     }
 
     /// Construct a color from a hexadecimal string.
-    init(_ hexString: String, alpha: Double = Double.nan) {
+    public init(_ hexString: String, alpha: Double = Double.nan) {
       self.hexString = hexString
       let hex = hexString.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
       var int = UInt32()
@@ -76,7 +76,7 @@ public struct Palette {
         alpha: CGFloat(self.alpha))
     }
     /// Returns a new color with the desired alpha component.
-    func withAlphaComponent(_ alpha: Double) -> Palette.Color {
+    public func withAlphaComponent(_ alpha: Double) -> Palette.Color {
       return Palette.Color(hexString, alpha: alpha)
     }
   }
