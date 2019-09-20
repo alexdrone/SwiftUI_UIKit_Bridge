@@ -62,8 +62,6 @@ public class Typography {
       provider = AppTypography.secondaryFontFamily
     }
     let failsafe = UIFont.systemFont(ofSize: size, weight: weight.fontWeight)
-    print(provider)
-    print(failsafe)
     guard let fontProvider = provider else {
       return failsafe
     }
