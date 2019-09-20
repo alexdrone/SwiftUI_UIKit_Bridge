@@ -17,14 +17,7 @@ public class DefaultTypography: TypographyProtocol {
     }
   }
   public let secondaryFontFamily: Typography.FontNameProvider? = { weight in
-    switch weight {
-    case .light:
-      return ".SFUI-Light"
-    case .regular:
-      return ".SFUI-Regular"
-    case .medium:
-      return ".SFUI-Medium"
-    }
+    return UIFont.systemFont(ofSize: 1, weight: weight.fontWeight).familyName
   }
 
   public func style(_ scale: Typography.Style) -> Typography.StyleDescriptor {
