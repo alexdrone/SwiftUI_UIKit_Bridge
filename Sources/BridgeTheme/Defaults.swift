@@ -19,11 +19,11 @@ public class DefaultTypography: TypographyProtocol {
   public let secondaryFontFamily: Typography.FontNameProvider? = { weight in
     switch weight {
     case .light:
-      return ".SFUIDisplay-Light"
+      return "SFUIDisplay-Light"
     case .regular:
-      return ".SFUIDisplay-Regular"
+      return "SFUIDisplay-Regular"
     case .medium:
-      return ".SFUIDisplay-Medium"
+      return "SFUIDisplay-Medium"
     }
   }
 
