@@ -10,10 +10,10 @@ public class DefaultTypography: TypographyProtocol {
     switch weight {
     case .light:
       return "Rubik-Light"
-    case .regular:
-      return "Rubik-Regular"
     case .medium:
       return "Rubik-Medium"
+    default:
+      return "Rubik-Regular"
     }
   }
   public let secondaryFontFamily: Typography.FontNameProvider? = { weight in

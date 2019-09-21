@@ -13,18 +13,36 @@ public class Typography {
 
   /// Represents the desired font weight.
   public enum FontWeight: String {
+    case ultraLight
+    case thin
     case light
     case regular
     case medium
+    case semibold
+    case bold
+    case heavy
+    case black
     /// Returns the associated *UIFontWeight* value.
     public var fontWeight: UIFont.Weight {
       switch self {
+      case .ultraLight:
+        return UIFont.Weight.ultraLight
+      case .thin:
+        return UIFont.Weight.thin
       case .light:
         return UIFont.Weight.light
       case .regular:
         return UIFont.Weight.regular
       case .medium:
         return UIFont.Weight.medium
+      case .semibold:
+        return UIFont.Weight.semibold
+      case .bold:
+        return UIFont.Weight.bold
+      case .heavy:
+        return UIFont.Weight.heavy
+      case .black:
+        return UIFont.Weight.black
       }
     }
   }
@@ -135,7 +153,6 @@ public class Typography {
       return Text(key)
         .font(Font.custom(internalFont.familyName, size: internalFont.pointSize))
         .kerning(kern)
-        .foregroundColor(color.color)
     }
 
     /// Returns a `SwiftUI.Text` view configured with this style descriptor.
@@ -144,7 +161,6 @@ public class Typography {
       return Text(verbatim: verbatim)
         .font(Font.custom(internalFont.familyName, size: internalFont.pointSize))
         .kerning(kern)
-        .foregroundColor(color.color)
     }
   }
 }
