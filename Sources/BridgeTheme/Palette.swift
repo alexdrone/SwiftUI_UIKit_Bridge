@@ -26,61 +26,84 @@ public struct Palette {
   }
 
   public struct Color {
-    /// The original hex string.
-    private let hexString: String
-    /// The red value of the color object.
-    public let red: Double
-    /// The green value of the color object.
-    public let green: Double
-    /// The blue value of the color object.
-    public let blue: Double
-    /// The alpha value of the color object.
-    public let alpha: Double
+    public enum ColorArgument {
+      case `static`(_ hex: String, _ alpha: Double = Double.nan)
+      case `invert`(_ hex: String, _ alpha: Double = Double.nan)
+      case `dynamic`(_ lightHex: String, _ darkHex: String, _ alpha: Double = Double.nan)
+    }
+
+    /// Color storage.
+    public struct Vector {
+      /// The red value of the color object.
+      public let red: Double
+      /// The green value of the color object.
+      public let green: Double
+      /// The blue value of the color object.
+      public let blue: Double
+      /// The alpha value of the color object.
+      public let alpha: Double
+      /// Construct a color from a hexadecimal string.
+      public init(_ vector: SIMD4<Double>) {
+        red = vector[0]
+        green = vector[1]
+        blue = vector[2]
+        alpha = vector[3]
+      }
+    }
+    private let argument: ColorArgument
+    /// The color storage.
+    private let lightStorage: Vector
+    private let darkStorage: Vector
+
     /// The associated `UIColor`
-    public let uiColor: UIColor
+    public var uiColor: UIColor {
+      let v = AppDarkModeEnabled ? darkStorage : lightStorage
+      return  UIColor(
+        red: CGFloat(v.red),
+        green: CGFloat(v.green),
+        blue: CGFloat(v.blue),
+        alpha: CGFloat(v.alpha))
+    }
     /// Returns a `Color` token.
     @available(iOS 13.0, *)
     public var color: SwiftUI.Color {
-      return SwiftUI.Color(.displayP3, red: red, green: green, blue: blue, opacity: alpha)
+      let v = AppDarkModeEnabled ? darkStorage : lightStorage
+      return SwiftUI.Color(.displayP3, red: v.red, green: v.green, blue: v.blue, opacity: v.alpha)
     }
 
-    /// Construct a color from a hexadecimal string.
-    public init(_ hexString: String, alpha: Double = Double.nan) {
-      self.hexString = hexString
-      let hex = hexString.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
-      var int = UInt32()
-      Scanner(string: hex).scanHexInt32(&int)
-      let a, r, g, b: UInt32
-      switch hex.count {
-      case 3: // RGB (12-bit)
-        (a, r, g, b) = (255, (int >> 8) * 17, (int >> 4 & 0xF) * 17, (int & 0xF) * 17)
-      case 6: // RGB (24-bit)
-        (a, r, g, b) = (255, int >> 16, int >> 8 & 0xFF, int & 0xFF)
-      case 8: // ARGB (32-bit)
-        (a, r, g, b) = (int >> 24, int >> 16 & 0xFF, int >> 8 & 0xFF, int & 0xFF)
-      default:
-        (a, r, g, b) = (255, 0, 0, 0)
-      }
-      self.red = Double(r) / 255
-      self.green = Double(g) / 255
-      self.blue = Double(b) / 255
-      if alpha >= 0 && alpha <= 1 {
-        self.alpha = alpha
-      } else {
-        self.alpha = Double(a) / 255
-      }
-      self.uiColor = UIColor(
-        red: CGFloat(self.red),
-        green: CGFloat(self.green),
-        blue: CGFloat(self.blue),
-        alpha: CGFloat(self.alpha))
+    public init(_ hexString: String) {
+      self.init(.static(hexString, 1))
     }
+
+    public init(_ argument: ColorArgument) {
+      self.argument = argument
+      switch argument {
+      case .static(let hex, let alpha):
+        lightStorage = Vector(SIMD4(hex, alpha))
+        darkStorage = lightStorage
+      case .invert(let hex, let alpha):
+        lightStorage = Vector(SIMD4(hex, alpha))
+        darkStorage = Vector(SIMD4(hex, alpha).inverRGB())
+      case .dynamic(let lightHex, let darkHex, let alpha):
+        lightStorage = Vector(SIMD4(lightHex, alpha))
+        darkStorage = Vector(SIMD4(darkHex, alpha))
+      }
+    }
+
     /// Returns a new color with the desired alpha component.
     public func withAlphaComponent(_ alpha: Double) -> Palette.Color {
-      return Palette.Color(hexString, alpha: alpha)
+      switch argument {
+      case .static(let hex, _):
+        return Palette.Color(.static(hex, alpha))
+      case .invert(let hex, _):
+        return Palette.Color(.invert(hex, alpha))
+      case .dynamic(let lightHex, let darkHex, _):
+        return Palette.Color(.dynamic(lightHex, darkHex, alpha))
+      }
     }
   }
 }
+
 
 public protocol PaletteProtocol {
   var surface: Palette.Color { get }
@@ -99,9 +122,9 @@ public protocol PaletteProtocol {
 
 // MARK: - Internals
 
-extension UIColor {
+public extension UIColor {
   /// Returns an image with solid color.
-  public func image(_ size: CGSize = CGSize(width: 1, height: 1)) -> UIImage {
+  func image(_ size: CGSize = CGSize(width: 1, height: 1)) -> UIImage {
     if #available(iOS 10.0, *) {
       return UIGraphicsImageRenderer(size: size).image { rendererContext in
         self.setFill()
@@ -112,3 +135,38 @@ extension UIColor {
     }
   }
 }
+
+extension SIMD4 where Scalar == Double {
+  /// Builds a SIMD4 from a RGB color.
+  init(_ hexString: String, _ alpha: Double) {
+    func norm(_ value: UInt32) -> Double {
+      return Double(value) / 255
+    }
+    let hex = hexString.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
+    var int = UInt32()
+    Scanner(string: hex).scanHexInt32(&int)
+    var a, r, g, b: UInt32
+    switch hex.count {
+    case 3: // RGB (12-bit)
+      (a, r, g, b) = (255, (int >> 8) * 17, (int >> 4 & 0xF) * 17, (int & 0xF) * 17)
+    case 6: // RGB (24-bit)
+      (a, r, g, b) = (255, int >> 16, int >> 8 & 0xFF, int & 0xFF)
+    case 8: // ARGB (32-bit)
+      (a, r, g, b) = (int >> 24, int >> 16 & 0xFF, int >> 8 & 0xFF, int & 0xFF)
+    default:
+      (a, r, g, b) = (255, 0, 0, 0)
+    }
+    a = 255
+    if alpha >= 0 && alpha <= 1 {
+      a = UInt32(alpha * 255)
+    }
+    let (dr, dg, db, da) = (norm(r), norm(g), norm(b), norm(a))
+    self.init(dr, dg, db, da)
+  }
+
+  /// Returns the color associated to the inverted RGB color.
+  func inverRGB() -> SIMD4<Double> {
+    return SIMD4(1 - self[0], 1 - self[1], 1 - self[2], self[3])
+  }
+}
+

@@ -91,8 +91,8 @@ public class DefaultTypography: TypographyProtocol {
 
 @available(iOS 10, *)
 public class DefaultPalette: PaletteProtocol {
-  public let surface = Palette.Color("#f8f9fa")
-  public let light = Palette.Color("#ffffff")
+  public let surface = Palette.Color(.invert("#f8f9fa"))
+  public let light = Palette.Color(.invert("#ffffff"))
   public let dark = Palette.Color("#f1f3f4")
   public let text = Palette.Color("#130c0c")
   public let textHigh = Palette.Color("#000000")
