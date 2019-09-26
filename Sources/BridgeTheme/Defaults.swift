@@ -91,12 +91,13 @@ public class DefaultTypography: TypographyProtocol {
 
 @available(iOS 10, *)
 public class DefaultPalette: PaletteProtocol {
+  public let background = Palette.Color(.invert("#ffffff"))
   public let surface = Palette.Color(.invert("#f8f9fa"))
-  public let light = Palette.Color(.invert("#ffffff"))
+  public let light = Palette.Color("#ffffff")
   public let dark = Palette.Color("#f1f3f4")
-  public let text = Palette.Color("#130c0c")
-  public let textHigh = Palette.Color("#000000")
-  public let textDisabled = Palette.Color("#000000").withAlphaComponent(0.38)
+  public let text = Palette.Color(.invert("#130c0c"()
+  public let textHigh = Palette.Color(.invert("#000000"))
+  public let textDisabled = Palette.Color(.invert("#000000")).withAlphaComponent(0.38)
   public let hairline = Palette.Color("#dadce0")
 
   public func primary(_ style: Palette.Style) -> Palette.Color {

@@ -106,6 +106,7 @@ public struct Palette {
 
 
 public protocol PaletteProtocol {
+  var background: Palette.Color { get }
   var surface: Palette.Color { get }
   var light: Palette.Color { get }
   var dark: Palette.Color { get }
