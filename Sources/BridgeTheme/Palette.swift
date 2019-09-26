@@ -110,6 +110,7 @@ public protocol PaletteProtocol {
   var surface: Palette.Color { get }
   var light: Palette.Color { get }
   var dark: Palette.Color { get }
+  var black: Palette.Color { get }
   var text: Palette.Color { get }
   var textHigh: Palette.Color { get }
   var textDisabled: Palette.Color { get }
