@@ -154,7 +154,8 @@ public class Typography {
     @available(iOS 13.0, *)
     public func asTextView(key: LocalizedStringKey) -> SwiftUI.Text {
       return Text(key)
-        .font(Font.custom(internalFont.familyName, size: internalFont.pointSize))
+        .font(Font(CTFontCreateWithFontDescriptor(
+          internalFont.fontDescriptor, internalFont.pointSize, nil)))
         .kerning(kern)
     }
 
@@ -162,7 +163,8 @@ public class Typography {
     @available(iOS 13.0, *)
     public func asTextView(verbatim: String) -> SwiftUI.Text {
       return Text(verbatim: verbatim)
-        .font(Font.custom(internalFont.familyName, size: internalFont.pointSize))
+        .font(Font(CTFontCreateWithFontDescriptor(
+          internalFont.fontDescriptor, internalFont.pointSize, nil)))
         .kerning(kern)
     }
   }
