@@ -3,7 +3,7 @@ import UIKit
 import SwiftUI
 #endif
 
-@available(iOS 10, *)
+@available(iOS 13, *)
 public class Typography {
   /// Scale text in your interface automatically by using Dynamic Type and `UIFontMetrics`.
   public static var enableDynamicType: Bool = true
@@ -79,11 +79,14 @@ public class Typography {
     case .secondary:
       provider = AppTypography.secondaryFontFamily
     }
-    let failsafe = UIFont.systemFont(ofSize: size, weight: weight.fontWeight)
+    let primaryDesc = UIFont.systemFont(ofSize: size, weight: weight.fontWeight)
+      .fontDescriptor.withDesign(.rounded)
+    let secondaryDesc = UIFont.systemFont(ofSize: size, weight: weight.fontWeight).fontDescriptor
+    let desc = family == .primary ? primaryDesc : secondaryDesc
     guard let fontProvider = provider else {
-      return failsafe
+      return UIFont(descriptor: desc!, size: size)
     }
-    return UIFont(name: fontProvider(weight), size: size) ?? failsafe
+    return UIFont(name: fontProvider(weight), size: size) ?? UIFont.systemFont(ofSize: size)
   }
 
   /// Fonts and its attributes.
@@ -165,7 +168,7 @@ public class Typography {
   }
 }
 
-@available(iOS 10, *)
+@available(iOS 13, *)
 public protocol TypographyProtocol {
   /// Returns the primary font provider.
   var primaryFontFamily: Typography.FontNameProvider? { get }

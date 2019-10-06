@@ -4,17 +4,12 @@ import UIKit
 
 // MARK: - Default typography
 
-@available(iOS 10, *)
+@available(iOS 13, *)
 public class DefaultTypography: TypographyProtocol {
   public let primaryFontFamily: Typography.FontNameProvider? = { weight in
-    switch weight {
-    case .light:
-      return "Rubik-Light"
-    case .medium:
-      return "Rubik-Medium"
-    default:
-      return "Rubik-Regular"
-    }
+    let nameAttr = UIFontDescriptor.AttributeName.name
+    return UIFont.systemFont(ofSize: 1, weight: weight.fontWeight)
+      .fontDescriptor.withDesign(.rounded)?.fontAttributes[nameAttr] as! String
   }
   public let secondaryFontFamily: Typography.FontNameProvider? = { weight in
     return UIFont.systemFont(ofSize: 1, weight: weight.fontWeight).familyName
@@ -48,7 +43,7 @@ public class DefaultTypography: TypographyProtocol {
         kern: 0.25)
     case .body1:
       return Typography.StyleDescriptor(
-        font: Typography.font(family: .secondary, weight: .regular, size: 14.26),
+        font: Typography.font(family: .secondary, weight: .regular, size: 13.26),
         kern: 0.5,
         supportDynamicType: true)
     case .body2:
@@ -68,7 +63,7 @@ public class DefaultTypography: TypographyProtocol {
         supportDynamicType: true)
     case .button:
       return Typography.StyleDescriptor(
-        font: Typography.font(family: .primary, weight: .medium, size: 12.22),
+        font: Typography.font(family: .primary, weight: .bold, size: 11.22),
         kern: 1.25,
         uppercase: true,
         supportDynamicType: true)
@@ -89,7 +84,7 @@ public class DefaultTypography: TypographyProtocol {
 
 // MARK: - Default palette
 
-@available(iOS 10, *)
+@available(iOS 13, *)
 public class DefaultPalette: PaletteProtocol {
   public let background = Palette.Color(.invert("#ffffff"))
   public let surface = Palette.Color(.invert("#f8f9fa"))
