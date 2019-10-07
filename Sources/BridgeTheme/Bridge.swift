@@ -1,12 +1,13 @@
 import UIKit
+
 #if canImport(SwiftUI)
-import SwiftUI
+  import SwiftUI
 #endif
 
-public extension UIColor {
+extension UIColor {
   /// Returns this color as a `SwiftUI.Color`.
   @available(iOS 13.0, *)
-  var color: SwiftUI.Color {
+  public var color: SwiftUI.Color {
     let c = cgColor.components ?? [0, 0, 0]
     let (r, g, b) = (Double(c[0]), Double(c[1]), Double(c[2]))
     let alpha = Double(cgColor.alpha)
@@ -14,10 +15,10 @@ public extension UIColor {
   }
 }
 
-public extension UIFont {
+extension UIFont {
   // Returns this font as a `SwiftUI.Font`.
   @available(iOS 13.0, *)
-  var font: SwiftUI.Font {
+  public var font: SwiftUI.Font {
     return SwiftUI.Font.custom(fontName, size: pointSize)
   }
 }

@@ -8,9 +8,11 @@ import UIKit
 public class DefaultTypography: TypographyProtocol {
   public let primaryFontFamily: Typography.FontNameProvider? = { weight in
     let nameAttr = UIFontDescriptor.AttributeName.name
-    return UIFont.systemFont(ofSize: 1, weight: weight.fontWeight)
+    return
+      UIFont.systemFont(ofSize: 1, weight: weight.fontWeight)
       .fontDescriptor.withDesign(.rounded)?.fontAttributes[nameAttr] as! String
   }
+
   public let secondaryFontFamily: Typography.FontNameProvider? = { weight in
     return UIFont.systemFont(ofSize: 1, weight: weight.fontWeight).familyName
   }
@@ -21,10 +23,11 @@ public class DefaultTypography: TypographyProtocol {
       return Typography.StyleDescriptor(
         font: Typography.font(family: .primary, weight: .light, size: 97.54),
         kern: -1.5)
-    case .h2: return
-      Typography.StyleDescriptor(
-        font: Typography.font(family: .primary, weight: .light, size: 60.96),
-        kern: -0.5)
+    case .h2:
+      return
+        Typography.StyleDescriptor(
+          font: Typography.font(family: .primary, weight: .light, size: 60.96),
+          kern: -0.5)
     case .h3:
       return Typography.StyleDescriptor(
         font: Typography.font(family: .primary, weight: .regular, size: 48.77),

@@ -1,12 +1,14 @@
 import UIKit
+
 #if canImport(SwiftUI)
-import SwiftUI
+  import SwiftUI
 #endif
 
 @available(iOS 13, *)
 public class Typography {
   /// Scale text in your interface automatically by using Dynamic Type and `UIFontMetrics`.
   public static var enableDynamicType: Bool = true
+
   /// - returns: The font name for the given weight.
   /// - note: A `nil` provider results in the system font.
   public typealias FontNameProvider = (FontWeight) -> String
@@ -22,6 +24,7 @@ public class Typography {
     case bold
     case heavy
     case black
+
     /// Returns the associated *UIFontWeight* value.
     public var fontWeight: UIFont.Weight {
       switch self {
@@ -93,14 +96,19 @@ public class Typography {
   public struct StyleDescriptor {
     /// The typeface.
     private let internalFont: UIFont
+
     /// The font letter spacing.
     private let kern: CGFloat
+
     /// Whether this typeface is meant to be used with uppercased text.
     private var uppercase: Bool
+
     /// Whether this font support dybamic font size.
     private var supportDynamicType: Bool
+
     /// The font color.
     public var color: Palette.Color
+
     /// Publicly exposed font (subject to font scaling if appliocable).
     public var font: UIFont {
       guard enableDynamicType, supportDynamicType else {
@@ -132,9 +140,10 @@ public class Typography {
       return [
         NSAttributedString.Key.font: font,
         NSAttributedString.Key.foregroundColor: color.uiColor,
-        NSAttributedString.Key.kern: kern
+        NSAttributedString.Key.kern: kern,
       ]
     }
+
     /// Override the `NSForegroundColorAttributeName` attribute.
     public func withColor(_ override: Palette.Color) -> StyleDescriptor {
       return StyleDescriptor(
@@ -144,6 +153,7 @@ public class Typography {
         supportDynamicType: supportDynamicType,
         color: override)
     }
+
     /// Returns an attributed string with the current font descriptor attributes.
     public func asAttributedString(_ string: String) -> NSAttributedString {
       let displayString = uppercase ? string.uppercased() : string
@@ -154,8 +164,10 @@ public class Typography {
     @available(iOS 13.0, *)
     public func asTextView(key: LocalizedStringKey) -> SwiftUI.Text {
       return Text(key)
-        .font(Font(CTFontCreateWithFontDescriptor(
-          internalFont.fontDescriptor, internalFont.pointSize, nil)))
+        .font(
+          Font(
+            CTFontCreateWithFontDescriptor(
+              internalFont.fontDescriptor, internalFont.pointSize, nil)))
         .kerning(kern)
     }
 
@@ -163,8 +175,10 @@ public class Typography {
     @available(iOS 13.0, *)
     public func asTextView(verbatim: String) -> SwiftUI.Text {
       return Text(verbatim: verbatim)
-        .font(Font(CTFontCreateWithFontDescriptor(
-          internalFont.fontDescriptor, internalFont.pointSize, nil)))
+        .font(
+          Font(
+            CTFontCreateWithFontDescriptor(
+              internalFont.fontDescriptor, internalFont.pointSize, nil)))
         .kerning(kern)
     }
   }
@@ -174,8 +188,10 @@ public class Typography {
 public protocol TypographyProtocol {
   /// Returns the primary font provider.
   var primaryFontFamily: Typography.FontNameProvider? { get }
+
   /// Returns the secondary font provider.
   var secondaryFontFamily: Typography.FontNameProvider? { get }
+
   /// Return the font style for the given typographic scale argument.
   func style(_ scale: Typography.Style) -> Typography.StyleDescriptor
 }

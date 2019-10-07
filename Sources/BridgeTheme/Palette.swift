@@ -1,9 +1,10 @@
 import UIKit
+
 #if canImport(SwiftUI)
-import SwiftUI
+  import SwiftUI
 #endif
 
-public struct Palette {
+public enum Palette {
   /// Swatch styles.
   public enum Style: String {
     case tintBase
@@ -36,12 +37,16 @@ public struct Palette {
     public struct Vector {
       /// The red value of the color object.
       public let red: Double
+
       /// The green value of the color object.
       public let green: Double
+
       /// The blue value of the color object.
       public let blue: Double
+
       /// The alpha value of the color object.
       public let alpha: Double
+
       /// Construct a color from a hexadecimal string.
       public init(_ vector: SIMD4<Double>) {
         red = vector[0]
@@ -50,20 +55,24 @@ public struct Palette {
         alpha = vector[3]
       }
     }
+
     private let argument: ColorArgument
+
     /// The color storage.
     private let lightStorage: Vector
+
     private let darkStorage: Vector
 
     /// The associated `UIColor`
     public var uiColor: UIColor {
       let v = AppDarkModeEnabled ? darkStorage : lightStorage
-      return  UIColor(
+      return UIColor(
         red: CGFloat(v.red),
         green: CGFloat(v.green),
         blue: CGFloat(v.blue),
         alpha: CGFloat(v.alpha))
     }
+
     /// Returns a `Color` token.
     @available(iOS 13.0, *)
     public var color: SwiftUI.Color {
@@ -104,7 +113,6 @@ public struct Palette {
   }
 }
 
-
 public protocol PaletteProtocol {
   var background: Palette.Color { get }
   var surface: Palette.Color { get }
@@ -118,15 +126,16 @@ public protocol PaletteProtocol {
 
   /// Returns all of the colors that belong to the primary swatch.
   func primary(_ style: Palette.Style) -> Palette.Color
+
   /// Returns all of the colors that belong to the secondary swatch.
   func secondary(_ style: Palette.Style) -> Palette.Color
 }
 
 // MARK: - Internals
 
-public extension UIColor {
+extension UIColor {
   /// Returns an image with solid color.
-  func image(_ size: CGSize = CGSize(width: 1, height: 1)) -> UIImage {
+  public func image(_ size: CGSize = CGSize(width: 1, height: 1)) -> UIImage {
     if #available(iOS 10.0, *) {
       return UIGraphicsImageRenderer(size: size).image { rendererContext in
         self.setFill()
@@ -147,13 +156,16 @@ extension SIMD4 where Scalar == Double {
     let hex = hexString.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
     var int = UInt32()
     Scanner(string: hex).scanHexInt32(&int)
-    var a, r, g, b: UInt32
+    var a: UInt32
+    var r: UInt32
+    var g: UInt32
+    var b: UInt32
     switch hex.count {
-    case 3: // RGB (12-bit)
+    case 3:  // RGB (12-bit)
       (a, r, g, b) = (255, (int >> 8) * 17, (int >> 4 & 0xF) * 17, (int & 0xF) * 17)
-    case 6: // RGB (24-bit)
+    case 6:  // RGB (24-bit)
       (a, r, g, b) = (255, int >> 16, int >> 8 & 0xFF, int & 0xFF)
-    case 8: // ARGB (32-bit)
+    case 8:  // ARGB (32-bit)
       (a, r, g, b) = (int >> 24, int >> 16 & 0xFF, int >> 8 & 0xFF, int & 0xFF)
     default:
       (a, r, g, b) = (255, 0, 0, 0)
@@ -171,4 +183,3 @@ extension SIMD4 where Scalar == Double {
     return SIMD4(1 - self[0], 1 - self[1], 1 - self[2], self[3])
   }
 }
-

@@ -3,11 +3,11 @@ import UIKit
 // Forked from piknotech/SFSafeSymbols.
 
 @available(iOS 13.0, *)
-public extension UIImage {
+extension UIImage {
   /// Retrieve a system symbol image of the given type.
   /// - systemSymbol: The SFSymbol describing this image.
   @available(iOS 13.0, *)
-  convenience init(systemSymbol: SFSymbol) {
+  public convenience init(systemSymbol: SFSymbol) {
     self.init(systemName: systemSymbol.rawValue)!
   }
 
@@ -15,10 +15,10 @@ public extension UIImage {
   /// - systemSymbol: The SFSymbol describing this image.
   /// - withConfiguration: The UIImage.Configuration applied to this system image.
   @available(iOS 13.0, *)
-  convenience init(
+  public convenience init(
     systemSymbol: SFSymbol,
     withConfiguration configuration: UIImage.Configuration?
-    ) {
+  ) {
     self.init(systemName: systemSymbol.rawValue, withConfiguration: configuration)!
   }
 
@@ -26,33 +26,33 @@ public extension UIImage {
   /// - systemSymbol: The SFSymbol describing this image.
   /// - compatibleWith: The UITraitCollection applied to this system image.
   @available(iOS 13.0, *)
-  convenience init(
+  public convenience init(
     systemSymbol: SFSymbol,
     compatibleWith traitCollection: UITraitCollection?
-    ) {
+  ) {
     self.init(systemName: systemSymbol.rawValue, compatibleWith: traitCollection)!
   }
 }
 
 @available(iOS 13.0, *)
-public extension SFSymbol {
+extension SFSymbol {
   /// Retrieves the corresponding UIImage.
   @available(iOS 13.0, *)
-  var toImage: UIImage {
+  public var toImage: UIImage {
     UIImage(systemSymbol: self)
   }
 
   /// Retrieves the corresponding UIImage with the given configuration.
   /// - withConfiguration: The UIImage.Configuration applied to this system image.
   @available(iOS 13.0, *)
-  func toImage(withConfiguration configuration: UIImage.Configuration?) -> UIImage {
+  public func toImage(withConfiguration configuration: UIImage.Configuration?) -> UIImage {
     UIImage(systemSymbol: self, withConfiguration: configuration)
   }
 
   /// Retrieves the corresponding UIImage with the given traits.
   /// - compatibleWith: The UITraitCollection applied to this system image.
   @available(iOS 13.0, *)
-  func toImage(compatibleWith traitCollection: UITraitCollection?) -> UIImage {
+  public func toImage(compatibleWith traitCollection: UITraitCollection?) -> UIImage {
     UIImage(systemSymbol: self, compatibleWith: traitCollection)
   }
 }
@@ -1590,7 +1590,8 @@ public enum SFSymbol: String, CaseIterable {
   case rectangleCompressVertical = "rectangle.compress.vertical"
   case rectangleExpandVertical = "rectangle.expand.vertical"
   case rectangleAndArrowUpRightAndArrowDownLeft = "rectangle.and.arrow.up.right.and.arrow.down.left"
-  case rectangleAndArrowUpRightAndArrowDownLeftSlash = "rectangle.and.arrow.up.right.and.arrow.down.left.slash"
+  case rectangleAndArrowUpRightAndArrowDownLeftSlash
+    = "rectangle.and.arrow.up.right.and.arrow.down.left.slash"
   case chartBar = "chart.bar"
   case chartBarFill = "chart.bar.fill"
   case chartPie = "chart.pie"
@@ -1644,4 +1645,3 @@ public enum SFSymbol: String, CaseIterable {
   case battery25 = "battery.25"
   case battery0 = "battery.0"
 }
-

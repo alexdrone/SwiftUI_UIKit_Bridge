@@ -1,6 +1,7 @@
 import UIKit
+
 #if canImport(SwiftUI)
-import SwiftUI
+  import SwiftUI
 #endif
 
 /// The theme palette.
@@ -20,13 +21,14 @@ public var AppDarkModeEnabled: Bool {
 }
 
 @available(iOS 13.0, *)
-public extension View {
+extension View {
   /// Returns the current app palette.
-  var palette: PaletteProtocol {
+  public var palette: PaletteProtocol {
     return AppPalette
   }
+
   /// Returns the current app typography.
-  var typography: TypographyProtocol {
+  public var typography: TypographyProtocol {
     return AppTypography
   }
 }
